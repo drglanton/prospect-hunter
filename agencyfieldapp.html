@@ -8,318 +8,174 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --navy:      #0C1A35;
-    --navy-deep: #081228;
-    --navy-card: #112040;
+    --navy:       #0C1A35;
+    --navy-deep:  #081228;
+    --navy-card:  #112040;
     --navy-border:#1E3260;
-    --gold:      #F5C518;
-    --gold-dark: #D4A800;
-    --gold-glow: rgba(245,197,24,0.18);
-    --white:     #FFFFFF;
-    --off-white: #C8D6F0;
-    --muted:     #5A7AAF;
-    --success:   #2ECC8C;
-    --danger:    #E05050;
-    --font-display: 'Barlow Condensed', sans-serif;
-    --font-body:    'Barlow', sans-serif;
+    --gold:       #F5C518;
+    --gold-glow:  rgba(245,197,24,0.18);
+    --white:      #FFFFFF;
+    --off-white:  #C8D6F0;
+    --muted:      #5A7AAF;
+    --success:    #2ECC8C;
+    --danger:     #E05050;
+    --font-d: 'Barlow Condensed', sans-serif;
+    --font-b: 'Barlow', sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--navy-deep);
-    color: var(--white);
-    font-family: var(--font-body);
-    min-height: 100dvh;
-    overflow-x: hidden;
-  }
+  body { background: var(--navy-deep); color: var(--white); font-family: var(--font-b); min-height: 100dvh; overflow-x: hidden; }
   body::before {
-    content: '';
-    position: fixed; inset: 0;
+    content: ''; position: fixed; inset: 0;
     background-image:
       repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(245,197,24,.04) 48px),
       repeating-linear-gradient(90deg, transparent, transparent 47px, rgba(245,197,24,.04) 48px);
     pointer-events: none; z-index: 0;
   }
-  .app {
-    position: relative; z-index: 1;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0 0 48px;
-  }
-  .header-banner {
-    background: var(--gold);
-    padding: 6px 20px;
-    text-align: center;
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--navy-deep);
-  }
-  header {
-    background: var(--navy);
-    padding: 24px 20px 20px;
-    border-bottom: 3px solid var(--gold);
-    position: relative;
-    overflow: hidden;
-  }
-  header::after {
-    content: '';
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 120px; height: 120px;
-    background: var(--gold);
-    opacity: .06;
-    border-radius: 50%;
-    filter: blur(30px);
-  }
-  .brand-line {
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 6px;
-  }
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(30px, 8vw, 40px);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: .01em;
-    text-transform: uppercase;
-    color: var(--white);
-  }
+  .app { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 48px; }
+
+  /* ── Header ── */
+  .header-banner { background: var(--gold); padding: 6px 20px; text-align: center; font-family: var(--font-d); font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--navy-deep); }
+  header { background: var(--navy); padding: 24px 20px 20px; border-bottom: 3px solid var(--gold); position: relative; overflow: hidden; }
+  header::after { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: var(--gold); opacity: .06; border-radius: 50%; filter: blur(30px); }
+  .brand-line { font-family: var(--font-d); font-size: 10px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  h1 { font-family: var(--font-d); font-size: clamp(30px,8vw,40px); font-weight: 800; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; color: var(--white); }
   h1 em { color: var(--gold); font-style: normal; }
-  .header-sub {
-    margin-top: 8px;
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 500;
-  }
+  .header-sub { margin-top: 8px; font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  /* ── Body / Card ── */
   .body { padding: 20px 20px 0; display: flex; flex-direction: column; gap: 16px; }
-  .card {
-    background: var(--navy-card);
-    border: 1px solid var(--navy-border);
-    border-radius: 12px;
-    padding: 18px;
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  .field { display: flex; flex-direction: column; gap: 6px; }
-  label {
-    font-family: var(--font-display);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+  .card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  label { font-family: var(--font-d); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+
   input[type="text"], input[type="url"] {
-    background: var(--navy-deep);
-    border: 1px solid var(--navy-border);
-    border-radius: 8px;
-    color: var(--white);
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 500;
-    padding: 12px 14px;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
-    width: 100%;
+    background: var(--navy-deep); border: 1px solid var(--navy-border); border-radius: 8px;
+    color: var(--white); font-family: var(--font-b); font-size: 15px; font-weight: 500;
+    padding: 12px 14px; outline: none; transition: border-color .2s, box-shadow .2s; width: 100%;
   }
   input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-glow); }
   input::placeholder { color: var(--muted); }
   input[readonly] { font-size: 13px; }
+
+  /* ── Niche Grid ── */
+  .niche-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .niche-card {
+    background: var(--navy-deep); border: 1px solid var(--navy-border); border-radius: 10px;
+    padding: 12px; cursor: pointer; transition: all .15s; position: relative; overflow: hidden;
+  }
+  .niche-card:active { transform: scale(.97); }
+  .niche-card.selected { border-color: var(--gold); background: rgba(245,197,24,.08); }
+  .niche-card.selected::after { content: '✓'; position: absolute; top: 8px; right: 10px; font-size: 12px; font-weight: 800; color: var(--gold); font-family: var(--font-d); }
+  .niche-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+  .niche-name { font-family: var(--font-d); font-size: 14px; font-weight: 700; color: var(--white); letter-spacing: .02em; line-height: 1.2; text-transform: uppercase; }
+  .niche-sub { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.3; }
+  .niche-value { font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--gold); margin-top: 5px; letter-spacing: .05em; }
+
+  /* Custom niche input row */
+  .custom-niche-row { display: flex; gap: 8px; align-items: center; }
+  .custom-niche-row input { flex: 1; }
+  #btn-add-niche {
+    background: transparent; border: 2px solid var(--gold); border-radius: 8px;
+    color: var(--gold); font-family: var(--font-d); font-size: 20px; font-weight: 700;
+    width: 46px; height: 46px; cursor: pointer; transition: all .15s; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #btn-add-niche:hover { background: var(--gold); color: var(--navy-deep); }
+
+  /* Custom niche tags */
+  .custom-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .custom-tag {
+    background: rgba(245,197,24,.12); border: 1px solid var(--gold); border-radius: 6px;
+    color: var(--gold); font-family: var(--font-d); font-size: 12px; font-weight: 700;
+    letter-spacing: .05em; padding: 4px 10px; display: flex; align-items: center; gap: 6px;
+    text-transform: uppercase;
+  }
+  .custom-tag .remove { cursor: pointer; opacity: .6; font-size: 14px; }
+  .custom-tag .remove:hover { opacity: 1; }
+
+  /* Selected summary */
+  .niche-summary { font-family: var(--font-d); font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; min-height: 14px; }
+  .niche-summary.has-selection { color: var(--success); }
+
+  /* ── Mode Toggle ── */
+  .mode-toggle { display: flex; border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+  .mode-btn { flex: 1; padding: 10px; background: var(--navy-deep); border: none; color: var(--muted); font-family: var(--font-d); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: all .15s; }
+  .mode-btn.active { background: var(--gold); color: var(--navy-deep); }
+  .mode-btn:first-child { border-right: 1px solid var(--navy-border); }
+
+  /* ── GPS / City sections ── */
+  .loc-section { display: none; flex-direction: column; gap: 10px; }
+  .loc-section.active { display: flex; }
   .gps-row { display: flex; gap: 10px; align-items: flex-end; }
   .gps-row .field { flex: 1; }
   #btn-gps {
-    background: transparent;
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    color: var(--gold);
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: 12px 13px;
-    white-space: nowrap;
-    transition: background .15s, color .15s;
-    display: flex; align-items: center; gap: 6px;
+    background: transparent; border: 2px solid var(--gold); border-radius: 8px; color: var(--gold);
+    cursor: pointer; font-family: var(--font-d); font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; padding: 12px 13px;
+    white-space: nowrap; transition: background .15s, color .15s; display: flex; align-items: center; gap: 6px;
   }
   #btn-gps:hover { background: var(--gold); color: var(--navy-deep); }
   #btn-gps:disabled { opacity: .4; cursor: not-allowed; }
   .gps-status { font-size: 11px; color: var(--muted); min-height: 14px; font-weight: 500; }
-  .gps-status.ok  { color: var(--success); }
+  .gps-status.ok { color: var(--success); }
   .gps-status.err { color: var(--danger); }
+  .city-row { display: flex; gap: 10px; }
+  .city-row .city-f { flex: 2; }
+  .city-row .state-f { flex: 1; }
+
+  /* ── Radius ── */
   .radius-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .pill {
-    font-family: var(--font-display);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: .05em;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid var(--navy-border);
-    background: var(--navy-deep);
-    color: var(--muted);
-    cursor: pointer;
-    transition: all .15s;
-    text-transform: uppercase;
-  }
+  .pill { font-family: var(--font-d); font-size: 13px; font-weight: 700; letter-spacing: .05em; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--navy-border); background: var(--navy-deep); color: var(--muted); cursor: pointer; transition: all .15s; text-transform: uppercase; }
   .pill.active { border-color: var(--gold); color: var(--navy-deep); background: var(--gold); }
-  #btn-find {
-    background: var(--gold);
-    border: none;
-    border-radius: 10px;
-    color: var(--navy-deep);
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    padding: 17px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    transition: opacity .15s, transform .1s;
-    box-shadow: 0 4px 20px rgba(245,197,24,.3);
-  }
+
+  /* ── Config toggle ── */
+  .config-toggle { font-family: var(--font-d); font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 0; }
+  .config-toggle:hover { color: var(--gold); }
+  .config-section { display: none; }
+  .config-section.open { display: flex; flex-direction: column; gap: 12px; }
+
+  /* ── Find button ── */
+  #btn-find { background: var(--gold); border: none; border-radius: 10px; color: var(--navy-deep); cursor: pointer; font-family: var(--font-d); font-size: 18px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 17px; width: 100%; position: relative; overflow: hidden; transition: opacity .15s, transform .1s; box-shadow: 0 4px 20px rgba(245,197,24,.3); }
   #btn-find:hover { opacity: .9; }
   #btn-find:active { transform: scale(.98); }
   #btn-find:disabled { opacity: .4; cursor: not-allowed; box-shadow: none; }
   #btn-find::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(245,197,24,.5); }
   #btn-find.pulsing::after { animation: ringpulse 1.3s ease-out infinite; }
   @keyframes ringpulse { to { box-shadow: 0 0 0 20px rgba(245,197,24,0); } }
-  .config-toggle {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: none; border: none;
-    cursor: pointer;
-    display: flex; align-items: center; gap: 6px;
-    padding: 0;
-  }
-  .config-toggle:hover { color: var(--gold); }
-  .config-section { display: none; }
-  .config-section.open { display: flex; flex-direction: column; gap: 12px; }
-  .status-strip {
-    display: none;
-    background: var(--navy-card);
-    border: 1px solid var(--navy-border);
-    border-left: 3px solid var(--gold);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--off-white);
-    align-items: center;
-    gap: 12px;
-  }
+
+  /* ── Status ── */
+  .status-strip { display: none; background: var(--navy-card); border: 1px solid var(--navy-border); border-left: 3px solid var(--gold); border-radius: 10px; padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--off-white); align-items: center; gap: 12px; }
   .status-strip.visible { display: flex; }
-  .spinner {
-    width: 16px; height: 16px; flex-shrink: 0;
-    border: 2px solid var(--navy-border);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
-  }
+  .spinner { width: 16px; height: 16px; flex-shrink: 0; border: 2px solid var(--navy-border); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  #results { display: flex; flex-direction: column; gap: 10px; }
-  .results-header { display: flex; justify-content: space-between; align-items: center; }
-  .results-header .rh-label {
-    font-family: var(--font-display);
-    font-size: 10px; font-weight: 700;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: var(--muted);
-  }
-  .results-header .rh-count {
-    font-family: var(--font-display);
-    font-size: 13px; font-weight: 700;
-    color: var(--gold); letter-spacing: .05em;
-  }
-  .lead-card {
-    background: var(--navy-card);
-    border: 1px solid var(--navy-border);
-    border-radius: 10px;
-    padding: 15px;
-    display: flex; flex-direction: column; gap: 5px;
-    animation: slideUp .28s ease both;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .lead-card:hover { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold-glow); }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .lead-card .niche-badge {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-size: 9px; font-weight: 700;
-    letter-spacing: .15em; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 4px;
-    background: var(--gold); color: var(--navy-deep);
-    margin-bottom: 2px; align-self: flex-start;
-  }
-  .lead-card .name {
-    font-family: var(--font-display);
-    font-size: 17px; font-weight: 700;
-    color: var(--white); letter-spacing: .01em;
-    text-transform: uppercase; line-height: 1.2;
-  }
-  .lead-card .address { font-size: 12px; font-weight: 500; color: var(--muted); }
-  .lead-card .bottom-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 4px; padding-top: 8px;
-    border-top: 1px solid var(--navy-border);
-  }
-  .lead-card .phone { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--gold); letter-spacing: .05em; }
-  .lead-card .no-phone { font-size: 11px; color: var(--muted); }
-  .lead-card .rating { font-size: 12px; font-weight: 500; color: var(--muted); }
-  .lead-card .star { color: var(--gold); }
-  .error-card {
-    background: rgba(224,80,80,.08);
-    border: 1px solid rgba(224,80,80,.3);
-    border-radius: 10px; padding: 16px;
-    font-size: 13px; font-weight: 500; color: var(--danger);
-  }
-  footer {
-    text-align: center; padding: 24px 20px 0;
-    font-size: 11px; color: var(--muted);
-    font-weight: 500; letter-spacing: .05em;
-  }
-  footer strong { color: var(--gold); }
-  #btn-route {
-    display: none;
-    background: var(--navy-card);
-    border: 2px solid var(--gold);
-    border-radius: 10px;
-    color: var(--gold);
-    cursor: pointer;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 800;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    padding: 15px;
-    width: 100%;
-    transition: background .15s, color .15s;
-    text-decoration: none;
-    text-align: center;
-  }
+
+  /* ── Route button ── */
+  #btn-route { display: none; background: var(--navy-card); border: 2px solid var(--gold); border-radius: 10px; color: var(--gold); cursor: pointer; font-family: var(--font-d); font-size: 16px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 15px; width: 100%; transition: background .15s, color .15s; text-decoration: none; text-align: center; }
   #btn-route:hover { background: var(--gold); color: var(--navy-deep); }
   #btn-route.visible { display: block; }
-  .lead-card .distance {
-    font-family: var(--font-display);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    color: var(--success);
-    text-transform: uppercase;
-  }
+
+  /* ── Lead cards ── */
+  #results { display: flex; flex-direction: column; gap: 10px; }
+  .results-header { display: flex; justify-content: space-between; align-items: center; }
+  .results-header .rh-label { font-family: var(--font-d); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+  .results-header .rh-count { font-family: var(--font-d); font-size: 13px; font-weight: 700; color: var(--gold); }
+  .lead-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; gap: 5px; animation: slideUp .28s ease both; transition: border-color .2s, box-shadow .2s; }
+  .lead-card:hover { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold-glow); }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .niche-badge { display: inline-block; font-family: var(--font-d); font-size: 9px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; background: var(--gold); color: var(--navy-deep); margin-bottom: 2px; align-self: flex-start; }
+  .lead-name { font-family: var(--font-d); font-size: 17px; font-weight: 700; color: var(--white); letter-spacing: .01em; text-transform: uppercase; line-height: 1.2; }
+  .lead-address { font-size: 12px; font-weight: 500; color: var(--muted); }
+  .lead-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding-top: 8px; border-top: 1px solid var(--navy-border); }
+  .lead-phone { font-family: var(--font-d); font-size: 15px; font-weight: 700; color: var(--gold); }
+  .no-phone { font-size: 11px; color: var(--muted); }
+  .lead-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .lead-rating { font-size: 12px; color: var(--muted); }
+  .lead-dist { font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; }
+  .star { color: var(--gold); }
+  .error-card { background: rgba(224,80,80,.08); border: 1px solid rgba(224,80,80,.3); border-radius: 10px; padding: 16px; font-size: 13px; font-weight: 500; color: var(--danger); }
+
+  footer { text-align: center; padding: 24px 20px 0; font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .05em; }
+  footer strong { color: var(--gold); }
 </style>
 </head>
 <body>
@@ -330,30 +186,118 @@
     <h1>Hyper-Local<br/><em>Prospecting</em></h1>
     <p class="header-sub">GPS-powered lead finder · Apify + n8n</p>
   </header>
+
   <div class="body">
     <div class="card">
+
+      <!-- ── Niche Selector ── -->
       <div class="field">
-        <label>Business Niche</label>
-        <input type="text" id="niche" placeholder="e.g. HVAC, Plumber, Roofer…" value="HVAC" />
-      </div>
-      <div class="gps-row">
-        <div class="field">
-          <label>Latitude</label>
-          <input type="text" id="lat" placeholder="33.7490" readonly />
+        <label>Target Niche — Select One or More</label>
+        <div class="niche-grid">
+
+          <div class="niche-card" data-niche="HVAC" onclick="toggleNiche(this)">
+            <span class="niche-icon">🌡️</span>
+            <div class="niche-name">HVAC &amp; Plumbing</div>
+            <div class="niche-sub">Emergency calls 24/7</div>
+            <div class="niche-value">$500–$5K/job</div>
+          </div>
+
+          <div class="niche-card" data-niche="Roofing Contractor" onclick="toggleNiche(this)">
+            <span class="niche-icon">🏠</span>
+            <div class="niche-name">Roofing</div>
+            <div class="niche-sub">Hail storms = lead frenzy</div>
+            <div class="niche-value">$10K–$25K/job</div>
+          </div>
+
+          <div class="niche-card" data-niche="Med Spa" onclick="toggleNiche(this)">
+            <span class="niche-icon">💉</span>
+            <div class="niche-name">Med Spa &amp; Dentistry</div>
+            <div class="niche-sub">Front desk misses calls</div>
+            <div class="niche-value">$2K–$10K LTV</div>
+          </div>
+
+          <div class="niche-card" data-niche="Personal Injury Law Firm" onclick="toggleNiche(this)">
+            <span class="niche-icon">⚖️</span>
+            <div class="niche-name">PI Law Firms</div>
+            <div class="niche-sub">24/7 accident intake</div>
+            <div class="niche-value">$50K–$100K/case</div>
+          </div>
+
+          <div class="niche-card" data-niche="Electrician" onclick="toggleNiche(this)">
+            <span class="niche-icon">⚡</span>
+            <div class="niche-name">Electrical</div>
+            <div class="niche-sub">Can't answer on the job</div>
+            <div class="niche-value">$300–$3K/job</div>
+          </div>
+
+          <div class="niche-card" data-niche="General Contractor" onclick="toggleNiche(this)">
+            <span class="niche-icon">🔨</span>
+            <div class="niche-name">General Contractor</div>
+            <div class="niche-sub">Juggling multiple sites</div>
+            <div class="niche-value">$10K–$100K/project</div>
+          </div>
+
         </div>
-        <div class="field">
-          <label>Longitude</label>
-          <input type="text" id="lng" placeholder="-84.3880" readonly />
-        </div>
-        <button id="btn-gps" onclick="getLocation()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-          </svg>
-          GPS
-        </button>
+
+        <!-- Selection summary -->
+        <div class="niche-summary" id="niche-summary">No niches selected</div>
       </div>
-      <div class="gps-status" id="gps-status">Tap GPS to detect your location</div>
+
+      <!-- ── Custom Niche ── -->
+      <div class="field">
+        <label>Add Custom Niche</label>
+        <div class="custom-niche-row">
+          <input type="text" id="custom-niche-input" placeholder="e.g. Pest Control, Landscaper…" />
+          <button id="btn-add-niche" onclick="addCustomNiche()">+</button>
+        </div>
+        <div class="custom-tags" id="custom-tags"></div>
+      </div>
+
+      <!-- ── Location Mode ── -->
+      <div class="field">
+        <label>Location Method</label>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="mode-gps" onclick="setMode('gps')">📍 GPS</button>
+          <button class="mode-btn" id="mode-city" onclick="setMode('city')">🏙️ City / State</button>
+        </div>
+      </div>
+
+      <!-- GPS -->
+      <div class="loc-section active" id="section-gps">
+        <div class="gps-row">
+          <div class="field">
+            <label>Latitude</label>
+            <input type="text" id="lat" placeholder="33.7490" readonly />
+          </div>
+          <div class="field">
+            <label>Longitude</label>
+            <input type="text" id="lng" placeholder="-84.3880" readonly />
+          </div>
+          <button id="btn-gps" onclick="getLocation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
+            </svg>
+            GPS
+          </button>
+        </div>
+        <div class="gps-status" id="gps-status">Tap GPS to detect your location</div>
+      </div>
+
+      <!-- City / State -->
+      <div class="loc-section" id="section-city">
+        <div class="city-row">
+          <div class="field city-f">
+            <label>City</label>
+            <input type="text" id="city" placeholder="e.g. Atlanta" />
+          </div>
+          <div class="field state-f">
+            <label>State</label>
+            <input type="text" id="state" placeholder="GA" maxlength="2" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Radius ── -->
       <div class="field">
         <label>Search Radius</label>
         <div class="radius-row">
@@ -363,6 +307,8 @@
           <div class="pill" data-miles="10" onclick="setRadius(this)">10 mi</div>
         </div>
       </div>
+
+      <!-- ── Webhook Settings ── -->
       <button class="config-toggle" onclick="toggleConfig()">
         <span id="config-arrow">▸</span> Webhook Settings
       </button>
@@ -372,24 +318,104 @@
           <input type="url" id="webhook-url" placeholder="https://your-n8n.app/webhook/leads" />
         </div>
       </div>
+
       <button id="btn-find" onclick="findLeads()">⚡ Find Leads Now</button>
     </div>
+
     <div class="status-strip" id="status-strip">
       <div class="spinner"></div>
       <span id="status-msg">Connecting to n8n…</span>
     </div>
+
     <a id="btn-route" target="_blank">🗺️ Open Route in Google Maps</a>
+
     <div id="results"></div>
   </div>
+
   <footer>
     <strong>Goldenrod Solutions Agency</strong><br/>
     Call or Text Thomas · 404-877-2899
   </footer>
 </div>
+
 <script>
   let selectedRadius = 3;
   let configOpen = false;
+  let locationMode = 'gps';
+  let selectedNiches = new Set();
+  let customNiches = [];
 
+  // ── Niche Selection ───────────────────────────────
+  function toggleNiche(el) {
+    const niche = el.dataset.niche;
+    if (selectedNiches.has(niche)) {
+      selectedNiches.delete(niche);
+      el.classList.remove('selected');
+    } else {
+      selectedNiches.add(niche);
+      el.classList.add('selected');
+    }
+    updateNicheSummary();
+  }
+
+  function addCustomNiche() {
+    const input = document.getElementById('custom-niche-input');
+    const val = input.value.trim();
+    if (!val) return;
+    if (customNiches.includes(val)) { input.value = ''; return; }
+    customNiches.push(val);
+    selectedNiches.add(val);
+    renderCustomTags();
+    updateNicheSummary();
+    input.value = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.activeElement.id === 'custom-niche-input') addCustomNiche();
+  });
+
+  function removeCustomNiche(val) {
+    customNiches = customNiches.filter(n => n !== val);
+    selectedNiches.delete(val);
+    renderCustomTags();
+    updateNicheSummary();
+  }
+
+  function renderCustomTags() {
+    const container = document.getElementById('custom-tags');
+    container.innerHTML = customNiches.map(n => `
+      <div class="custom-tag">
+        ${escHtml(n)}
+        <span class="remove" onclick="removeCustomNiche('${escHtml(n)}')">✕</span>
+      </div>`).join('');
+  }
+
+  function updateNicheSummary() {
+    const el = document.getElementById('niche-summary');
+    const all = [...selectedNiches];
+    if (!all.length) {
+      el.textContent = 'No niches selected';
+      el.className = 'niche-summary';
+    } else {
+      el.textContent = `✓ ${all.length} selected: ${all.join(', ')}`;
+      el.className = 'niche-summary has-selection';
+    }
+  }
+
+  function getAllNiches() {
+    return [...selectedNiches];
+  }
+
+  // ── Location Mode ─────────────────────────────────
+  function setMode(mode) {
+    locationMode = mode;
+    document.getElementById('mode-gps').classList.toggle('active', mode === 'gps');
+    document.getElementById('mode-city').classList.toggle('active', mode === 'city');
+    document.getElementById('section-gps').classList.toggle('active', mode === 'gps');
+    document.getElementById('section-city').classList.toggle('active', mode === 'city');
+  }
+
+  // ── GPS ───────────────────────────────────────────
   function getLocation() {
     const btn = document.getElementById('btn-gps');
     const status = document.getElementById('gps-status');
@@ -416,12 +442,14 @@
     s.textContent = '✗ ' + msg;
   }
 
+  // ── Radius ────────────────────────────────────────
   function setRadius(el) {
     document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
     el.classList.add('active');
     selectedRadius = parseInt(el.dataset.miles);
   }
 
+  // ── Config ────────────────────────────────────────
   function toggleConfig() {
     configOpen = !configOpen;
     document.getElementById('config-section').classList.toggle('open', configOpen);
@@ -433,34 +461,58 @@
     document.getElementById('status-strip').classList.toggle('visible', visible);
   }
 
+  // ── Find Leads ────────────────────────────────────
   async function findLeads() {
-    const niche   = document.getElementById('niche').value.trim();
-    const lat     = document.getElementById('lat').value.trim();
-    const lng     = document.getElementById('lng').value.trim();
+    const niches  = getAllNiches();
     const webhook = document.getElementById('webhook-url').value.trim();
-    if (!niche)       return alert('Please enter a business niche.');
-    if (!lat || !lng) return alert('Please get your GPS location first.');
-    if (!webhook)     return alert('Please enter your n8n Webhook URL in Webhook Settings.');
+
+    if (!niches.length) return alert('Please select at least one niche or add a custom one.');
+    if (!webhook)       return alert('Please enter your n8n Webhook URL in Webhook Settings.');
+
+    let payload = {
+      niche:         niches[0],
+      niches:        niches,
+      niche_label:   niches.join(', '),
+      radius_miles:  selectedRadius,
+      radius_meters: Math.round(selectedRadius * 1609.34),
+      timestamp:     new Date().toISOString()
+    };
+
+    if (locationMode === 'gps') {
+      const lat = document.getElementById('lat').value.trim();
+      const lng = document.getElementById('lng').value.trim();
+      if (!lat || !lng) return alert('Please tap GPS to detect your location first.');
+      payload.latitude      = parseFloat(lat);
+      payload.longitude     = parseFloat(lng);
+      payload.location_mode = 'gps';
+    } else {
+      const city  = document.getElementById('city').value.trim();
+      const state = document.getElementById('state').value.trim().toUpperCase();
+      if (!city)  return alert('Please enter a city name.');
+      if (!state) return alert('Please enter a state abbreviation.');
+      payload.city           = city;
+      payload.state          = state;
+      payload.location_query = `${city}, ${state}`;
+      payload.location_mode  = 'city';
+    }
 
     const btn = document.getElementById('btn-find');
     btn.disabled = true; btn.classList.add('pulsing'); btn.textContent = '⏳ Searching…';
     document.getElementById('results').innerHTML = '';
     document.getElementById('btn-route').classList.remove('visible');
-    setStatus('Sending to n8n webhook…');
-
-    const payload = {
-      niche, latitude: parseFloat(lat), longitude: parseFloat(lng),
-      radius_miles: selectedRadius, radius_meters: Math.round(selectedRadius * 1609.34),
-      timestamp: new Date().toISOString()
-    };
+    setStatus(`Searching for ${niches.join(' + ')}…`);
 
     try {
       setStatus('n8n is triggering Apify run…');
-      const res = await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const res = await fetch(webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
       if (!res.ok) throw new Error(`Webhook returned HTTP ${res.status}`);
       const data = await res.json();
       setStatus('', false);
-      renderResults(data, niche);
+      renderResults(data, niches.join(' + '));
     } catch (err) {
       setStatus('', false);
       document.getElementById('results').innerHTML = `<div class="error-card"><strong>⚠ Request Failed</strong><br/>${err.message}</div>`;
@@ -469,52 +521,55 @@
     }
   }
 
-  function renderResults(data, niche) {
+  // ── Render Results ────────────────────────────────
+  function renderResults(data, nicheLabel) {
     const container = document.getElementById('results');
     const originLat = document.getElementById('lat').value;
     const originLng = document.getElementById('lng').value;
     const leads = Array.isArray(data) ? data : Array.isArray(data.leads) ? data.leads : [];
+
     if (!leads.length) {
       container.innerHTML = `<div class="error-card">No results found. Try a wider radius or different niche.</div>`;
-      document.getElementById('btn-route').classList.remove('visible');
       return;
     }
 
-    // Build Google Maps route URL
+    // Build Google Maps route
     const withCoords = leads.filter(b => b.location?.lat && b.location?.lng);
     if (withCoords.length > 0 && originLat && originLng) {
       const origin = `${originLat},${originLng}`;
-      const stops = withCoords.slice(0, 9);
-      const destination = stops[stops.length - 1];
-      const waypoints = stops.slice(0, -1).map(b => `${b.location.lat},${b.location.lng}`).join('|');
-      const destStr = `${destination.location.lat},${destination.location.lng}`;
-      let mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destStr}&travelmode=driving`;
-      if (waypoints) mapsUrl += `&waypoints=${encodeURIComponent(waypoints)}`;
+      const stops  = withCoords.slice(0, 9);
+      const dest   = stops[stops.length - 1];
+      const wps    = stops.slice(0, -1).map(b => `${b.location.lat},${b.location.lng}`).join('|');
+      let mapsUrl  = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest.location.lat},${dest.location.lng}&travelmode=driving`;
+      if (wps) mapsUrl += `&waypoints=${encodeURIComponent(wps)}`;
       const routeBtn = document.getElementById('btn-route');
       routeBtn.href = mapsUrl;
       routeBtn.classList.add('visible');
     }
 
     container.innerHTML = `<div class="results-header"><span class="rh-label">Results</span><span class="rh-count">${leads.length} Leads Found</span></div>`;
+
     leads.forEach((biz, i) => {
-      const name = biz.title || biz.name || 'Unknown Business';
-      const address = biz.address || biz.street || '—';
-      const phone = biz.phone || biz.phoneNumber || '';
-      const rating = biz.totalScore || biz.rating || '';
-      const reviews = biz.reviewsCount || biz.reviewCount || '';
-      const dist = biz.distance_miles ? `${biz.distance_miles} mi away` : '';
+      const name    = biz.title    || biz.name        || 'Unknown Business';
+      const address = biz.address  || biz.street      || '—';
+      const phone   = biz.phone    || biz.phoneNumber || '';
+      const rating  = biz.totalScore || biz.rating    || '';
+      const reviews = biz.reviewsCount || '';
+      const dist    = biz.distance_miles ? `${biz.distance_miles} mi` : '';
+      const badge   = biz.niche || nicheLabel;
+
       const card = document.createElement('div');
       card.className = 'lead-card';
       card.style.animationDelay = `${i * 35}ms`;
       card.innerHTML = `
-        <div class="niche-badge">${escHtml(niche)}</div>
-        <div class="name">${escHtml(name)}</div>
-        <div class="address">📍 ${escHtml(address)}</div>
-        <div class="bottom-row">
-          <div class="phone">${phone ? '📞 ' + escHtml(phone) : '<span class="no-phone">No phone listed</span>'}</div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
-            ${rating ? `<div class="rating"><span class="star">★</span> ${rating}${reviews ? ' · ' + reviews : ''}</div>` : ''}
-            ${dist ? `<div class="distance">📍 ${dist}</div>` : ''}
+        <div class="niche-badge">${escHtml(badge)}</div>
+        <div class="lead-name">${escHtml(name)}</div>
+        <div class="lead-address">📍 ${escHtml(address)}</div>
+        <div class="lead-bottom">
+          <div class="lead-phone">${phone ? '📞 ' + escHtml(phone) : '<span class="no-phone">No phone listed</span>'}</div>
+          <div class="lead-meta">
+            ${rating ? `<div class="lead-rating"><span class="star">★</span> ${rating}${reviews ? ' · ' + reviews : ''}</div>` : ''}
+            ${dist   ? `<div class="lead-dist">${dist} away</div>` : ''}
           </div>
         </div>`;
       container.appendChild(card);
@@ -525,6 +580,7 @@
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
+  // ── Persist webhook ───────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('gsa_webhook');
     if (saved) document.getElementById('webhook-url').value = saved;
