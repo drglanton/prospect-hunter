@@ -142,6 +142,18 @@
   #btn-find::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(245,197,24,.5); }
   #btn-find.pulsing::after { animation: ringpulse 1.3s ease-out infinite; }
   @keyframes ringpulse { to { box-shadow: 0 0 0 20px rgba(245,197,24,0); } }
+  .btn-row { display: flex; gap: 10px; }
+  .btn-row #btn-find { flex: 1; font-size: 15px; padding: 15px 10px; }
+  #btn-quick {
+    flex: 1; background: transparent; border: 2px solid var(--gold);
+    border-radius: 10px; color: var(--gold); cursor: pointer;
+    font-family: var(--font-d); font-size: 15px; font-weight: 800;
+    letter-spacing: .04em; text-transform: uppercase; padding: 15px 10px;
+    transition: background .15s, color .15s;
+  }
+  #btn-quick:hover { background: var(--gold); color: var(--navy-deep); }
+  #btn-quick:disabled { opacity: .4; cursor: not-allowed; }
+  #btn-quick.pulsing::after { animation: ringpulse 1.3s ease-out infinite; }
 
   /* ── Status ── */
   .status-strip { display: none; background: var(--navy-card); border: 1px solid var(--navy-border); border-left: 3px solid var(--gold); border-radius: 10px; padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--off-white); align-items: center; gap: 12px; }
@@ -319,7 +331,10 @@
         </div>
       </div>
 
-      <button id="btn-find" onclick="findLeads()">⚡ Find Leads Now</button>
+      <div class="btn-row">
+        <button id="btn-find" onclick="findLeads()">⚡ Find Leads Now</button>
+        <button id="btn-quick" onclick="quickSearch()">📋 Quick Search</button>
+      </div>
     </div>
 
     <div class="status-strip" id="status-strip">
@@ -574,6 +589,54 @@
         </div>`;
       container.appendChild(card);
     });
+  }
+
+  // ── Quick Search (Sheet Lookup) ──────────────────
+  const SHEET_LOOKUP_URL = 'https://n8n.srv1445265.hstgr.cloud/webhook/sheet-leads';
+
+  async function quickSearch() {
+    const niches  = getAllNiches();
+    const niche   = niches.length ? niches[0] : 'HVAC';
+
+    let lat, lng;
+    if (locationMode === 'gps') {
+      lat = document.getElementById('lat').value.trim();
+      lng = document.getElementById('lng').value.trim();
+      if (!lat || !lng) return alert('Please tap GPS to detect your location first.');
+    } else {
+      return alert('Quick Search uses GPS mode. Please switch to GPS and get your location.');
+    }
+
+    const btn = document.getElementById('btn-quick');
+    btn.disabled = true; btn.textContent = '⏳ Searching…';
+    document.getElementById('results').innerHTML = '';
+    document.getElementById('btn-route').classList.remove('visible');
+    setStatus('Searching your saved leads…');
+
+    const payload = {
+      niche,
+      niches,
+      latitude:  parseFloat(lat),
+      longitude: parseFloat(lng),
+      timestamp: new Date().toISOString()
+    };
+
+    try {
+      const res = await fetch(SHEET_LOOKUP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(`Webhook returned HTTP ${res.status}`);
+      const data = await res.json();
+      setStatus('', false);
+      renderResults(data, niche);
+    } catch (err) {
+      setStatus('', false);
+      document.getElementById('results').innerHTML = `<div class="error-card"><strong>⚠ Quick Search Failed</strong><br/>${err.message}</div>`;
+    } finally {
+      btn.disabled = false; btn.textContent = '📋 Quick Search';
+    }
   }
 
   function escHtml(str) {
