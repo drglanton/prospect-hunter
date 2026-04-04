@@ -19,6 +19,7 @@
     --muted:      #5A7AAF;
     --success:    #2ECC8C;
     --danger:     #E05050;
+    --waze:       #33CCFF;
     --font-d: 'Barlow Condensed', sans-serif;
     --font-b: 'Barlow', sans-serif;
   }
@@ -32,8 +33,6 @@
     pointer-events: none; z-index: 0;
   }
   .app { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 48px; }
-
-  /* ── Header ── */
   .header-banner { background: var(--gold); padding: 6px 20px; text-align: center; font-family: var(--font-d); font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--navy-deep); }
   header { background: var(--navy); padding: 24px 20px 20px; border-bottom: 3px solid var(--gold); position: relative; overflow: hidden; }
   header::after { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: var(--gold); opacity: .06; border-radius: 50%; filter: blur(30px); }
@@ -41,13 +40,10 @@
   h1 { font-family: var(--font-d); font-size: clamp(30px,8vw,40px); font-weight: 800; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; color: var(--white); }
   h1 em { color: var(--gold); font-style: normal; }
   .header-sub { margin-top: 8px; font-size: 12px; color: var(--muted); font-weight: 500; }
-
-  /* ── Body / Card ── */
   .body { padding: 20px 20px 0; display: flex; flex-direction: column; gap: 16px; }
   .card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
   .field { display: flex; flex-direction: column; gap: 7px; }
   label { font-family: var(--font-d); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
-
   input[type="text"], input[type="url"] {
     background: var(--navy-deep); border: 1px solid var(--navy-border); border-radius: 8px;
     color: var(--white); font-family: var(--font-b); font-size: 15px; font-weight: 500;
@@ -56,8 +52,6 @@
   input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-glow); }
   input::placeholder { color: var(--muted); }
   input[readonly] { font-size: 13px; }
-
-  /* ── Niche Grid ── */
   .niche-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .niche-card {
     background: var(--navy-deep); border: 1px solid var(--navy-border); border-radius: 10px;
@@ -70,8 +64,6 @@
   .niche-name { font-family: var(--font-d); font-size: 14px; font-weight: 700; color: var(--white); letter-spacing: .02em; line-height: 1.2; text-transform: uppercase; }
   .niche-sub { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.3; }
   .niche-value { font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--gold); margin-top: 5px; letter-spacing: .05em; }
-
-  /* Custom niche input row */
   .custom-niche-row { display: flex; gap: 8px; align-items: center; }
   .custom-niche-row input { flex: 1; }
   #btn-add-niche {
@@ -81,8 +73,6 @@
     display: flex; align-items: center; justify-content: center;
   }
   #btn-add-niche:hover { background: var(--gold); color: var(--navy-deep); }
-
-  /* Custom niche tags */
   .custom-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .custom-tag {
     background: rgba(245,197,24,.12); border: 1px solid var(--gold); border-radius: 6px;
@@ -92,18 +82,12 @@
   }
   .custom-tag .remove { cursor: pointer; opacity: .6; font-size: 14px; }
   .custom-tag .remove:hover { opacity: 1; }
-
-  /* Selected summary */
   .niche-summary { font-family: var(--font-d); font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; min-height: 14px; }
   .niche-summary.has-selection { color: var(--success); }
-
-  /* ── Mode Toggle ── */
   .mode-toggle { display: flex; border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
   .mode-btn { flex: 1; padding: 10px; background: var(--navy-deep); border: none; color: var(--muted); font-family: var(--font-d); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: all .15s; }
   .mode-btn.active { background: var(--gold); color: var(--navy-deep); }
   .mode-btn:first-child { border-right: 1px solid var(--navy-border); }
-
-  /* ── GPS / City sections ── */
   .loc-section { display: none; flex-direction: column; gap: 10px; }
   .loc-section.active { display: flex; }
   .gps-row { display: flex; gap: 10px; align-items: flex-end; }
@@ -122,19 +106,13 @@
   .city-row { display: flex; gap: 10px; }
   .city-row .city-f { flex: 2; }
   .city-row .state-f { flex: 1; }
-
-  /* ── Radius ── */
   .radius-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .pill { font-family: var(--font-d); font-size: 13px; font-weight: 700; letter-spacing: .05em; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--navy-border); background: var(--navy-deep); color: var(--muted); cursor: pointer; transition: all .15s; text-transform: uppercase; }
   .pill.active { border-color: var(--gold); color: var(--navy-deep); background: var(--gold); }
-
-  /* ── Config toggle ── */
   .config-toggle { font-family: var(--font-d); font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 0; }
   .config-toggle:hover { color: var(--gold); }
   .config-section { display: none; }
   .config-section.open { display: flex; flex-direction: column; gap: 12px; }
-
-  /* ── Find button ── */
   #btn-find { background: var(--gold); border: none; border-radius: 10px; color: var(--navy-deep); cursor: pointer; font-family: var(--font-d); font-size: 18px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 17px; width: 100%; position: relative; overflow: hidden; transition: opacity .15s, transform .1s; box-shadow: 0 4px 20px rgba(245,197,24,.3); }
   #btn-find:hover { opacity: .9; }
   #btn-find:active { transform: scale(.98); }
@@ -153,20 +131,22 @@
   }
   #btn-quick:hover { background: var(--gold); color: var(--navy-deep); }
   #btn-quick:disabled { opacity: .4; cursor: not-allowed; }
-  #btn-quick.pulsing::after { animation: ringpulse 1.3s ease-out infinite; }
-
-  /* ── Status ── */
   .status-strip { display: none; background: var(--navy-card); border: 1px solid var(--navy-border); border-left: 3px solid var(--gold); border-radius: 10px; padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--off-white); align-items: center; gap: 12px; }
   .status-strip.visible { display: flex; }
   .spinner { width: 16px; height: 16px; flex-shrink: 0; border: 2px solid var(--navy-border); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── Route button ── */
-  #btn-route { display: none; background: var(--navy-card); border: 2px solid var(--gold); border-radius: 10px; color: var(--gold); cursor: pointer; font-family: var(--font-d); font-size: 16px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 15px; width: 100%; transition: background .15s, color .15s; text-decoration: none; text-align: center; }
-  #btn-route:hover { background: var(--gold); color: var(--navy-deep); }
-  #btn-route.visible { display: block; }
-
-  /* ── Lead cards ── */
+  .route-row { display: none; gap: 10px; }
+  .route-row.visible { display: flex; }
+  .route-btn {
+    flex: 1; border-radius: 10px; font-family: var(--font-d); font-size: 14px; font-weight: 800;
+    letter-spacing: .05em; text-transform: uppercase; padding: 14px 10px;
+    text-decoration: none; text-align: center; transition: all .15s; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .route-btn-maps { background: var(--navy-card); border: 2px solid var(--gold); color: var(--gold); }
+  .route-btn-maps:hover { background: var(--gold); color: var(--navy-deep); }
+  .route-btn-waze { background: var(--navy-card); border: 2px solid var(--waze); color: var(--waze); }
+  .route-btn-waze:hover { background: var(--waze); color: var(--navy-deep); }
   #results { display: flex; flex-direction: column; gap: 10px; }
   .results-header { display: flex; justify-content: space-between; align-items: center; }
   .results-header .rh-label { font-family: var(--font-d); font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
@@ -185,15 +165,11 @@
   .lead-dist { font-family: var(--font-d); font-size: 11px; font-weight: 700; color: var(--success); text-transform: uppercase; }
   .star { color: var(--gold); }
   .error-card { background: rgba(224,80,80,.08); border: 1px solid rgba(224,80,80,.3); border-radius: 10px; padding: 16px; font-size: 13px; font-weight: 500; color: var(--danger); }
-
   footer { text-align: center; padding: 24px 20px 0; font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .05em; }
   footer strong { color: var(--gold); }
 
   /* ── Status buttons ── */
-  .status-row {
-    display: flex; gap: 6px; margin-top: 8px; padding-top: 8px;
-    border-top: 1px solid var(--navy-border);
-  }
+  .status-row { display: flex; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--navy-border); }
   .status-btn {
     flex: 1; padding: 7px 4px; border-radius: 6px; border: 1px solid var(--navy-border);
     background: var(--navy-deep); color: var(--muted); font-family: var(--font-d);
@@ -201,12 +177,56 @@
     cursor: pointer; transition: all .15s; text-align: center;
   }
   .status-btn:hover { opacity: .85; }
-  .status-btn.visited   { background: rgba(46,204,140,.15); border-color: var(--success); color: var(--success); }
+  .status-btn.visited    { background: rgba(46,204,140,.15); border-color: var(--success); color: var(--success); }
   .status-btn.interested { background: rgba(245,197,24,.15); border-color: var(--gold); color: var(--gold); }
-  .status-btn.skip      { background: rgba(224,80,80,.15); border-color: var(--danger); color: var(--danger); }
-  .status-btn.active-visited   { background: var(--success); color: var(--navy-deep); border-color: var(--success); }
+  .status-btn.skip       { background: rgba(224,80,80,.15); border-color: var(--danger); color: var(--danger); }
+  .status-btn.active-visited    { background: var(--success); color: var(--navy-deep); border-color: var(--success); }
   .status-btn.active-interested { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
-  .status-btn.active-skip      { background: var(--danger); color: var(--white); border-color: var(--danger); }
+  .status-btn.active-skip       { background: var(--danger); color: var(--white); border-color: var(--danger); }
+
+  /* ── Notes section ── */
+  .note-toggle-row {
+    display: flex; justify-content: flex-end; margin-top: 4px;
+  }
+  .btn-note-toggle {
+    background: none; border: none; color: var(--muted); font-family: var(--font-d);
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    cursor: pointer; padding: 4px 0; transition: color .15s; display: flex; align-items: center; gap: 4px;
+  }
+  .btn-note-toggle:hover { color: var(--gold); }
+  .note-section {
+    display: none; flex-direction: column; gap: 8px;
+    margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--navy-border);
+  }
+  .note-section.open { display: flex; }
+  .note-textarea {
+    width: 100%; background: var(--navy-deep); border: 1px solid var(--navy-border);
+    border-radius: 8px; color: var(--white); font-family: var(--font-b); font-size: 13px;
+    font-weight: 500; padding: 10px 12px; outline: none; resize: none; min-height: 72px;
+    transition: border-color .2s, box-shadow .2s; line-height: 1.5;
+  }
+  .note-textarea::placeholder { color: var(--muted); }
+  .note-textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-glow); }
+  .note-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-save-note {
+    flex: 1; background: var(--gold); border: none; border-radius: 8px;
+    color: var(--navy-deep); font-family: var(--font-d); font-size: 13px; font-weight: 800;
+    letter-spacing: .06em; text-transform: uppercase; padding: 10px 16px;
+    cursor: pointer; transition: opacity .15s;
+  }
+  .btn-save-note:hover { opacity: .85; }
+  .btn-save-note:disabled { opacity: .4; cursor: not-allowed; }
+  .note-saved-msg {
+    font-family: var(--font-d); font-size: 11px; font-weight: 700;
+    color: var(--success); letter-spacing: .08em; text-transform: uppercase;
+    display: none; align-items: center; gap: 4px;
+  }
+  .note-saved-msg.visible { display: flex; }
+  .existing-note {
+    font-size: 12px; color: var(--off-white); font-style: italic;
+    background: rgba(245,197,24,.06); border-left: 3px solid var(--gold);
+    padding: 8px 10px; border-radius: 0 6px 6px 0; line-height: 1.5;
+  }
 </style>
 </head>
 <body>
@@ -217,64 +237,50 @@
     <h1>Hyper-Local<br/><em>Prospecting</em></h1>
     <p class="header-sub">GPS-powered lead finder · Apify + n8n</p>
   </header>
-
   <div class="body">
     <div class="card">
-
-      <!-- ── Niche Selector ── -->
       <div class="field">
         <label>Target Niche — Select One or More</label>
         <div class="niche-grid">
-
           <div class="niche-card" data-niche="HVAC" onclick="toggleNiche(this)">
             <span class="niche-icon">🌡️</span>
             <div class="niche-name">HVAC &amp; Plumbing</div>
             <div class="niche-sub">Emergency calls 24/7</div>
             <div class="niche-value">$500–$5K/job</div>
           </div>
-
           <div class="niche-card" data-niche="Roofing Contractor" onclick="toggleNiche(this)">
             <span class="niche-icon">🏠</span>
             <div class="niche-name">Roofing</div>
             <div class="niche-sub">Hail storms = lead frenzy</div>
             <div class="niche-value">$10K–$25K/job</div>
           </div>
-
           <div class="niche-card" data-niche="Med Spa" onclick="toggleNiche(this)">
             <span class="niche-icon">💉</span>
             <div class="niche-name">Med Spa &amp; Dentistry</div>
             <div class="niche-sub">Front desk misses calls</div>
             <div class="niche-value">$2K–$10K LTV</div>
           </div>
-
           <div class="niche-card" data-niche="Personal Injury Law Firm" onclick="toggleNiche(this)">
             <span class="niche-icon">⚖️</span>
             <div class="niche-name">PI Law Firms</div>
             <div class="niche-sub">24/7 accident intake</div>
             <div class="niche-value">$50K–$100K/case</div>
           </div>
-
           <div class="niche-card" data-niche="Electrician" onclick="toggleNiche(this)">
             <span class="niche-icon">⚡</span>
             <div class="niche-name">Electrical</div>
             <div class="niche-sub">Can't answer on the job</div>
             <div class="niche-value">$300–$3K/job</div>
           </div>
-
           <div class="niche-card" data-niche="General Contractor" onclick="toggleNiche(this)">
             <span class="niche-icon">🔨</span>
             <div class="niche-name">General Contractor</div>
             <div class="niche-sub">Juggling multiple sites</div>
             <div class="niche-value">$10K–$100K/project</div>
           </div>
-
         </div>
-
-        <!-- Selection summary -->
         <div class="niche-summary" id="niche-summary">No niches selected</div>
       </div>
-
-      <!-- ── Custom Niche ── -->
       <div class="field">
         <label>Add Custom Niche</label>
         <div class="custom-niche-row">
@@ -283,8 +289,6 @@
         </div>
         <div class="custom-tags" id="custom-tags"></div>
       </div>
-
-      <!-- ── Location Mode ── -->
       <div class="field">
         <label>Location Method</label>
         <div class="mode-toggle">
@@ -292,8 +296,6 @@
           <button class="mode-btn" id="mode-city" onclick="setMode('city')">🏙️ City / State</button>
         </div>
       </div>
-
-      <!-- GPS -->
       <div class="loc-section active" id="section-gps">
         <div class="gps-row">
           <div class="field">
@@ -313,8 +315,6 @@
         </div>
         <div class="gps-status" id="gps-status">Tap GPS to detect your location</div>
       </div>
-
-      <!-- City / State -->
       <div class="loc-section" id="section-city">
         <div class="city-row">
           <div class="field city-f">
@@ -327,8 +327,6 @@
           </div>
         </div>
       </div>
-
-      <!-- ── Radius ── -->
       <div class="field">
         <label>Search Radius</label>
         <div class="radius-row">
@@ -338,8 +336,6 @@
           <div class="pill" data-miles="10" onclick="setRadius(this)">10 mi</div>
         </div>
       </div>
-
-      <!-- ── Webhook Settings ── -->
       <button class="config-toggle" onclick="toggleConfig()">
         <span id="config-arrow">▸</span> Webhook Settings
       </button>
@@ -349,7 +345,6 @@
           <input type="url" id="webhook-url" placeholder="https://your-n8n.app/webhook/leads" />
         </div>
       </div>
-
       <div class="btn-row">
         <button id="btn-find" onclick="findLeads()">⚡ Find Leads Now</button>
         <button id="btn-quick" onclick="quickSearch()">📋 Quick Search</button>
@@ -361,11 +356,13 @@
       <span id="status-msg">Connecting to n8n…</span>
     </div>
 
-    <a id="btn-route" target="_blank">🗺️ Open Route in Google Maps</a>
+    <div class="route-row" id="route-row">
+      <a id="btn-route-maps" class="route-btn route-btn-maps" target="_blank">🗺️ Google Maps</a>
+      <a id="btn-route-waze" class="route-btn route-btn-waze" target="_blank">🔵 Waze</a>
+    </div>
 
     <div id="results"></div>
   </div>
-
   <footer>
     <strong>Goldenrod Solutions Agency</strong><br/>
     Call or Text Thomas · 404-877-2899
@@ -379,68 +376,38 @@
   let selectedNiches = new Set();
   let customNiches = [];
 
-  // ── Niche Selection ───────────────────────────────
   function toggleNiche(el) {
     const niche = el.dataset.niche;
-    if (selectedNiches.has(niche)) {
-      selectedNiches.delete(niche);
-      el.classList.remove('selected');
-    } else {
-      selectedNiches.add(niche);
-      el.classList.add('selected');
-    }
+    if (selectedNiches.has(niche)) { selectedNiches.delete(niche); el.classList.remove('selected'); }
+    else { selectedNiches.add(niche); el.classList.add('selected'); }
     updateNicheSummary();
   }
-
   function addCustomNiche() {
     const input = document.getElementById('custom-niche-input');
     const val = input.value.trim();
     if (!val) return;
     if (customNiches.includes(val)) { input.value = ''; return; }
-    customNiches.push(val);
-    selectedNiches.add(val);
-    renderCustomTags();
-    updateNicheSummary();
-    input.value = '';
+    customNiches.push(val); selectedNiches.add(val);
+    renderCustomTags(); updateNicheSummary(); input.value = '';
   }
-
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && document.activeElement.id === 'custom-niche-input') addCustomNiche();
   });
-
   function removeCustomNiche(val) {
-    customNiches = customNiches.filter(n => n !== val);
-    selectedNiches.delete(val);
-    renderCustomTags();
-    updateNicheSummary();
+    customNiches = customNiches.filter(n => n !== val); selectedNiches.delete(val);
+    renderCustomTags(); updateNicheSummary();
   }
-
   function renderCustomTags() {
-    const container = document.getElementById('custom-tags');
-    container.innerHTML = customNiches.map(n => `
-      <div class="custom-tag">
-        ${escHtml(n)}
-        <span class="remove" onclick="removeCustomNiche('${escHtml(n)}')">✕</span>
-      </div>`).join('');
+    document.getElementById('custom-tags').innerHTML = customNiches.map(n => `
+      <div class="custom-tag">${escHtml(n)}<span class="remove" onclick="removeCustomNiche('${escHtml(n)}')">✕</span></div>`).join('');
   }
-
   function updateNicheSummary() {
     const el = document.getElementById('niche-summary');
     const all = [...selectedNiches];
-    if (!all.length) {
-      el.textContent = 'No niches selected';
-      el.className = 'niche-summary';
-    } else {
-      el.textContent = `✓ ${all.length} selected: ${all.join(', ')}`;
-      el.className = 'niche-summary has-selection';
-    }
+    if (!all.length) { el.textContent = 'No niches selected'; el.className = 'niche-summary'; }
+    else { el.textContent = `✓ ${all.length} selected: ${all.join(', ')}`; el.className = 'niche-summary has-selection'; }
   }
-
-  function getAllNiches() {
-    return [...selectedNiches];
-  }
-
-  // ── Location Mode ─────────────────────────────────
+  function getAllNiches() { return [...selectedNiches]; }
   function setMode(mode) {
     locationMode = mode;
     document.getElementById('mode-gps').classList.toggle('active', mode === 'gps');
@@ -448,14 +415,10 @@
     document.getElementById('section-gps').classList.toggle('active', mode === 'gps');
     document.getElementById('section-city').classList.toggle('active', mode === 'city');
   }
-
-  // ── GPS ───────────────────────────────────────────
   function getLocation() {
     const btn = document.getElementById('btn-gps');
     const status = document.getElementById('gps-status');
-    btn.disabled = true;
-    status.className = 'gps-status';
-    status.textContent = 'Acquiring signal…';
+    btn.disabled = true; status.className = 'gps-status'; status.textContent = 'Acquiring signal…';
     if (!navigator.geolocation) { showGpsError('Geolocation not supported.'); btn.disabled = false; return; }
     navigator.geolocation.getCurrentPosition(
       pos => {
@@ -469,80 +432,53 @@
       { enableHighAccuracy: true, timeout: 10000 }
     );
   }
-
   function showGpsError(msg) {
-    const s = document.getElementById('gps-status');
-    s.className = 'gps-status err';
-    s.textContent = '✗ ' + msg;
+    const s = document.getElementById('gps-status'); s.className = 'gps-status err'; s.textContent = '✗ ' + msg;
   }
-
-  // ── Radius ────────────────────────────────────────
   function setRadius(el) {
     document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    el.classList.add('active');
-    selectedRadius = parseInt(el.dataset.miles);
+    el.classList.add('active'); selectedRadius = parseInt(el.dataset.miles);
   }
-
-  // ── Config ────────────────────────────────────────
   function toggleConfig() {
     configOpen = !configOpen;
     document.getElementById('config-section').classList.toggle('open', configOpen);
     document.getElementById('config-arrow').textContent = configOpen ? '▾' : '▸';
   }
-
   function setStatus(msg, visible = true) {
     document.getElementById('status-msg').textContent = msg;
     document.getElementById('status-strip').classList.toggle('visible', visible);
   }
 
-  // ── Find Leads ────────────────────────────────────
   async function findLeads() {
-    const niches  = getAllNiches();
+    const niches = getAllNiches();
     const webhook = document.getElementById('webhook-url').value.trim();
-
     if (!niches.length) return alert('Please select at least one niche or add a custom one.');
-    if (!webhook)       return alert('Please enter your n8n Webhook URL in Webhook Settings.');
-
+    if (!webhook) return alert('Please enter your n8n Webhook URL in Webhook Settings.');
     let payload = {
-      niche:         niches[0],
-      niches:        niches,
-      niche_label:   niches.join(', '),
-      radius_miles:  selectedRadius,
-      radius_meters: Math.round(selectedRadius * 1609.34),
-      timestamp:     new Date().toISOString()
+      niche: niches[0], niches, niche_label: niches.join(', '),
+      radius_miles: selectedRadius, radius_meters: Math.round(selectedRadius * 1609.34),
+      timestamp: new Date().toISOString()
     };
-
     if (locationMode === 'gps') {
       const lat = document.getElementById('lat').value.trim();
       const lng = document.getElementById('lng').value.trim();
       if (!lat || !lng) return alert('Please tap GPS to detect your location first.');
-      payload.latitude      = parseFloat(lat);
-      payload.longitude     = parseFloat(lng);
-      payload.location_mode = 'gps';
+      payload.latitude = parseFloat(lat); payload.longitude = parseFloat(lng); payload.location_mode = 'gps';
     } else {
-      const city  = document.getElementById('city').value.trim();
+      const city = document.getElementById('city').value.trim();
       const state = document.getElementById('state').value.trim().toUpperCase();
-      if (!city)  return alert('Please enter a city name.');
+      if (!city) return alert('Please enter a city name.');
       if (!state) return alert('Please enter a state abbreviation.');
-      payload.city           = city;
-      payload.state          = state;
-      payload.location_query = `${city}, ${state}`;
-      payload.location_mode  = 'city';
+      payload.city = city; payload.state = state;
+      payload.location_query = `${city}, ${state}`; payload.location_mode = 'city';
     }
-
     const btn = document.getElementById('btn-find');
     btn.disabled = true; btn.classList.add('pulsing'); btn.textContent = '⏳ Searching…';
     document.getElementById('results').innerHTML = '';
-    document.getElementById('btn-route').classList.remove('visible');
-    setStatus(`Searching for ${niches.join(' + ')}…`);
-
+    document.getElementById('route-row').classList.remove('visible');
+    setStatus('n8n is triggering Apify run…');
     try {
-      setStatus('n8n is triggering Apify run…');
-      const res = await fetch(webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const res = await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error(`Webhook returned HTTP ${res.status}`);
       const data = await res.json();
       setStatus('', false);
@@ -555,34 +491,33 @@
     }
   }
 
-  // ── Render Results ────────────────────────────────
-  function renderResults(data, nicheLabel) {
-    const container = document.getElementById('results');
+  function buildRouteButtons(leads) {
     const originLat = document.getElementById('lat').value;
     const originLng = document.getElementById('lng').value;
-    const leads = Array.isArray(data) ? data : Array.isArray(data.leads) ? data.leads : [];
+    const withCoords = leads.filter(b => b.location?.lat && b.location?.lng);
+    if (!withCoords.length || !originLat || !originLng) return;
+    const origin = `${originLat},${originLng}`;
+    const stops = withCoords.slice(0, 9);
+    const dest = stops[stops.length - 1];
+    const wps = stops.slice(0, -1).map(b => `${b.location.lat},${b.location.lng}`).join('|');
+    let mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest.location.lat},${dest.location.lng}&travelmode=driving`;
+    if (wps) mapsUrl += `&waypoints=${encodeURIComponent(wps)}`;
+    const first = stops[0];
+    const wazeUrl = `https://waze.com/ul?ll=${first.location.lat},${first.location.lng}&navigate=yes&zoom=17`;
+    document.getElementById('btn-route-maps').href = mapsUrl;
+    document.getElementById('btn-route-waze').href = wazeUrl;
+    document.getElementById('route-row').classList.add('visible');
+  }
 
+  function renderResults(data, nicheLabel) {
+    const container = document.getElementById('results');
+    const leads = Array.isArray(data) ? data : Array.isArray(data.leads) ? data.leads : [];
     if (!leads.length) {
       container.innerHTML = `<div class="error-card">No results found. Try a wider radius or different niche.</div>`;
       return;
     }
-
-    // Build Google Maps route
-    const withCoords = leads.filter(b => b.location?.lat && b.location?.lng);
-    if (withCoords.length > 0 && originLat && originLng) {
-      const origin = `${originLat},${originLng}`;
-      const stops  = withCoords.slice(0, 9);
-      const dest   = stops[stops.length - 1];
-      const wps    = stops.slice(0, -1).map(b => `${b.location.lat},${b.location.lng}`).join('|');
-      let mapsUrl  = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest.location.lat},${dest.location.lng}&travelmode=driving`;
-      if (wps) mapsUrl += `&waypoints=${encodeURIComponent(wps)}`;
-      const routeBtn = document.getElementById('btn-route');
-      routeBtn.href = mapsUrl;
-      routeBtn.classList.add('visible');
-    }
-
+    buildRouteButtons(leads);
     container.innerHTML = `<div class="results-header"><span class="rh-label">Results</span><span class="rh-count">${leads.length} Leads Found</span></div>`;
-
     leads.forEach((biz, i) => {
       const name    = biz.title    || biz.name        || 'Unknown Business';
       const address = biz.address  || biz.street      || '—';
@@ -591,9 +526,12 @@
       const reviews = biz.reviewsCount || '';
       const dist    = biz.distance_miles ? `${biz.distance_miles} mi` : '';
       const badge   = biz.niche || nicheLabel;
+      const existingNote = biz.notes || biz.Notes || '';
+      const cardId  = `card-${i}`;
 
       const card = document.createElement('div');
       card.className = 'lead-card';
+      card.id = cardId;
       card.style.animationDelay = `${i * 35}ms`;
       card.innerHTML = `
         <div class="niche-badge">${escHtml(badge)}</div>
@@ -610,18 +548,98 @@
           <button class="status-btn visited" data-status="Visited" onclick="updateStatus('${escHtml(phone)}', 'Visited', this.closest('.lead-card'))">✅ Visited</button>
           <button class="status-btn interested" data-status="Interested" onclick="updateStatus('${escHtml(phone)}', 'Interested', this.closest('.lead-card'))">🌟 Interested</button>
           <button class="status-btn skip" data-status="Skip" onclick="updateStatus('${escHtml(phone)}', 'Skip', this.closest('.lead-card'))">❌ Skip</button>
+        </div>
+        <div class="note-toggle-row">
+          <button class="btn-note-toggle" onclick="toggleNote('${cardId}')">✏️ + Add Note</button>
+        </div>
+        <div class="note-section" id="note-${cardId}">
+          ${existingNote ? `<div class="existing-note">📝 ${escHtml(existingNote)}</div>` : ''}
+          <textarea class="note-textarea" id="textarea-${cardId}" placeholder="Met the owner — very interested… Closed today, come back Thursday… Left a brochure at the door…" rows="3"></textarea>
+          <div class="note-actions">
+            <button class="btn-save-note" onclick="saveNote('${escHtml(phone)}', '${cardId}')">💾 Save Note</button>
+            <span class="note-saved-msg" id="saved-${cardId}">✓ Saved</span>
+          </div>
         </div>`;
       container.appendChild(card);
     });
   }
 
-  // ── Quick Search (Sheet Lookup) ──────────────────
+  function toggleNote(cardId) {
+    const section = document.getElementById(`note-${cardId}`);
+    const isOpen = section.classList.contains('open');
+    section.classList.toggle('open', !isOpen);
+    const btn = document.querySelector(`#${cardId} .btn-note-toggle`);
+    btn.textContent = isOpen ? '✏️ + Add Note' : '▲ Hide Note';
+    if (!isOpen) {
+      setTimeout(() => document.getElementById(`textarea-${cardId}`)?.focus(), 100);
+    }
+  }
+
+  const STATUS_URL = 'https://n8n.srv1445265.hstgr.cloud/webhook/update-status';
+
+  async function saveNote(phone, cardId) {
+    if (!phone) return alert('No phone number to identify this business.');
+    const textarea = document.getElementById(`textarea-${cardId}`);
+    const note = textarea.value.trim();
+    if (!note) return alert('Please type a note before saving.');
+    const btn = document.querySelector(`#${cardId} .btn-save-note`);
+    const savedMsg = document.getElementById(`saved-${cardId}`);
+    btn.disabled = true; btn.textContent = '⏳ Saving…';
+    try {
+      const res = await fetch(STATUS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, notes: note })
+      });
+      if (!res.ok) throw new Error('Save failed');
+      btn.textContent = '💾 Save Note';
+      btn.disabled = false;
+      savedMsg.classList.add('visible');
+      // Update the existing note display
+      const existingDiv = document.querySelector(`#note-${cardId} .existing-note`);
+      if (existingDiv) { existingDiv.textContent = `📝 ${note}`; }
+      else {
+        const newDiv = document.createElement('div');
+        newDiv.className = 'existing-note';
+        newDiv.textContent = `📝 ${note}`;
+        document.getElementById(`note-${cardId}`).insertBefore(newDiv, textarea);
+      }
+      textarea.value = '';
+      setTimeout(() => savedMsg.classList.remove('visible'), 3000);
+    } catch (err) {
+      btn.textContent = '💾 Save Note';
+      btn.disabled = false;
+      alert('Could not save note. Check your connection.');
+    }
+  }
+
+  async function updateStatus(phone, status, cardEl) {
+    if (!phone) return alert('No phone number to identify this business.');
+    const btns = cardEl.querySelectorAll('.status-btn');
+    btns.forEach(b => b.disabled = true);
+    try {
+      const res = await fetch(STATUS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, status })
+      });
+      if (!res.ok) throw new Error('Update failed');
+      btns.forEach(b => b.classList.remove('active-visited', 'active-interested', 'active-skip'));
+      const activeBtn = cardEl.querySelector(`.status-btn[data-status="${status}"]`);
+      if (activeBtn) activeBtn.classList.add(`active-${status.toLowerCase()}`);
+      if (status === 'Visited' || status === 'Skip') cardEl.style.opacity = '0.45';
+      else cardEl.style.opacity = '1';
+    } catch (err) {
+      alert('Could not update status. Check your connection.');
+    } finally {
+      btns.forEach(b => b.disabled = false);
+    }
+  }
+
   const SHEET_LOOKUP_URL = 'https://n8n.srv1445265.hstgr.cloud/webhook/sheet-leads';
-
   async function quickSearch() {
-    const niches  = getAllNiches();
-    const niche   = niches.length ? niches[0] : 'HVAC';
-
+    const niches = getAllNiches();
+    const niche = niches.length ? niches[0] : 'HVAC';
     let lat, lng;
     if (locationMode === 'gps') {
       lat = document.getElementById('lat').value.trim();
@@ -630,27 +648,14 @@
     } else {
       return alert('Quick Search uses GPS mode. Please switch to GPS and get your location.');
     }
-
     const btn = document.getElementById('btn-quick');
     btn.disabled = true; btn.textContent = '⏳ Searching…';
     document.getElementById('results').innerHTML = '';
-    document.getElementById('btn-route').classList.remove('visible');
+    document.getElementById('route-row').classList.remove('visible');
     setStatus('Searching your saved leads…');
-
-    const payload = {
-      niche,
-      niches,
-      latitude:  parseFloat(lat),
-      longitude: parseFloat(lng),
-      timestamp: new Date().toISOString()
-    };
-
+    const payload = { niche, niches, latitude: parseFloat(lat), longitude: parseFloat(lng), timestamp: new Date().toISOString() };
     try {
-      const res = await fetch(SHEET_LOOKUP_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
+      const res = await fetch(SHEET_LOOKUP_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error(`Webhook returned HTTP ${res.status}`);
       const data = await res.json();
       setStatus('', false);
@@ -663,47 +668,9 @@
     }
   }
 
-  // ── Status Update ────────────────────────────────
-  const STATUS_URL = 'https://n8n.srv1445265.hstgr.cloud/webhook/update-status';
-
-  async function updateStatus(phone, status, cardEl) {
-    if (!phone) return alert('No phone number to identify this business.');
-    const btns = cardEl.querySelectorAll('.status-btn');
-    btns.forEach(b => b.disabled = true);
-
-    try {
-      const res = await fetch(STATUS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, status })
-      });
-      if (!res.ok) throw new Error('Update failed');
-
-      // Update button visuals
-      btns.forEach(b => {
-        b.classList.remove('active-visited', 'active-interested', 'active-skip');
-      });
-      const activeBtn = cardEl.querySelector(`.status-btn[data-status="${status}"]`);
-      if (activeBtn) activeBtn.classList.add(`active-${status.toLowerCase()}`);
-
-      // Dim card if visited or skip
-      if (status === 'Visited' || status === 'Skip') {
-        cardEl.style.opacity = '0.45';
-      } else {
-        cardEl.style.opacity = '1';
-      }
-    } catch (err) {
-      alert('Could not update status. Check your connection.');
-    } finally {
-      btns.forEach(b => b.disabled = false);
-    }
-  }
-
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-
-  // ── Persist webhook ───────────────────────────────
   window.addEventListener('DOMContentLoaded', () => {
     const saved = localStorage.getItem('gsa_webhook');
     if (saved) document.getElementById('webhook-url').value = saved;
