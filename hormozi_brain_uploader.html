@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hormozi Brain — Feed the Machine</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --off-black: #111111;
+    --card: #161616;
+    --border: #242424;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --red: #e03030;
+    --green: #2ecc71;
+    --text: #e8e8e8;
+    --muted: #666;
+    --mono: 'DM Mono', monospace;
+    --display: 'Bebas Neue', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: var(--body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orb */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .header-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .header h1 {
+    font-family: var(--display);
+    font-size: clamp(52px, 10vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .header h1 span {
+    color: var(--gold);
+  }
+
+  .header p {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* Status bar */
+  .status-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+
+  .status-dot.idle { background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+  .status-dot.error { background: var(--red); box-shadow: 0 0 8px var(--red); animation: none; }
+
+  .status-text { color: var(--text); flex: 1; }
+  .status-time { color: var(--muted); }
+
+  /* Webhook config */
+  .config-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .config-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .config-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .config-input {
+    flex: 1;
+    background: var(--off-black);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .config-input:focus { border-color: var(--gold); }
+  .config-input::placeholder { color: var(--muted); }
+
+  .config-save {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+
+  .config-save:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Drop zone */
+  .drop-zone {
+    background: var(--card);
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s 0.3s ease both;
+    margin-bottom: 24px;
+  }
+
+  .drop-zone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, var(--gold-dim) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .drop-zone:hover::before,
+  .drop-zone.dragover::before { opacity: 1; }
+
+  .drop-zone:hover,
+  .drop-zone.dragover {
+    border-color: var(--gold);
+    background: #1a1a1a;
+  }
+
+  .drop-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .drop-zone:hover .drop-icon { transform: scale(1.1) rotate(-5deg); }
+
+  .drop-title {
+    font-family: var(--display);
+    font-size: 28px;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .drop-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .drop-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .drop-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .drop-formats {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  input[type="file"] { display: none; }
+
+  /* Queue */
+  .queue-section {
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .queue-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .queue-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .queue-count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .queue-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: 13px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-family: var(--mono);
+  }
+
+  /* Queue item */
+  .queue-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s;
+    animation: slideIn 0.3s ease both;
+  }
+
+  .queue-item.processing { border-color: var(--gold); }
+  .queue-item.success { border-color: var(--green); }
+  .queue-item.error { border-color: var(--red); }
+
+  .item-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .item-info { flex: 1; min-width: 0; }
+
+  .item-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+
+  .item-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    display: flex;
+    gap: 12px;
+  }
+
+  .item-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .item-status.pending { color: var(--muted); }
+  .item-status.processing { color: var(--gold); }
+  .item-status.success { color: var(--green); }
+  .item-status.error { color: var(--red); }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .progress-fill.success { background: var(--green); }
+
+  /* Spinner */
+  .spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(201,168,76,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  /* Stats footer */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 24px;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--display);
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Animations */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--card);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { border-color: var(--red); color: var(--red); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="header-tag">EDCO / Goldenrod Intelligence System</span>
+    <h1>HORMOZI<br><span>BRAIN</span></h1>
+    <p>Drop TikTok videos. Feed the machine. Build the asset.</p>
+  </div>
+
+  <!-- Status -->
+  <div class="status-bar" id="statusBar">
+    <div class="status-dot idle" id="statusDot"></div>
+    <span class="status-text" id="statusText">Ready — waiting for videos</span>
+    <span class="status-time" id="statusTime"></span>
+  </div>
+
+  <!-- Webhook Config -->
+  <div class="config-card">
+    <span class="config-label">n8n Webhook URL</span>
+    <div class="config-row">
+      <input 
+        type="text" 
+        class="config-input" 
+        id="webhookUrl" 
+        placeholder="https://n8n.srv1445265.hstgr.cloud/webhook/hormozi-brain"
+        value=""
+      >
+      <button class="config-save" onclick="saveWebhook()">SAVE</button>
+    </div>
+  </div>
+
+  <!-- Drop Zone -->
+  <div class="drop-zone" id="dropZone">
+    <span class="drop-icon">🧠</span>
+    <div class="drop-title">FEED THE BRAIN</div>
+    <p class="drop-sub">Drop Hormozi TikTok videos here<br>Each video gets transcribed, synthesized, and filed</p>
+    <button class="drop-btn" onclick="document.getElementById('fileInput').click()">SELECT FILES</button>
+    <p class="drop-formats">MP4 · MOV · M4A · MP3 · WAV — MAX 25MB</p>
+    <input type="file" id="fileInput" accept="video/*,audio/*" multiple>
+  </div>
+
+  <!-- Queue -->
+  <div class="queue-section">
+    <div class="queue-header">
+      <span class="queue-title">Processing Queue</span>
+      <span class="queue-count" id="queueCount">0 items</span>
+    </div>
+    <div id="queue">
+      <div class="queue-empty" id="emptyState">// No videos queued yet</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num" id="statProcessed">0</div>
+      <div class="stat-label">Processed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statSuccess">0</div>
+      <div class="stat-label">Synthesized</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statFailed">0</div>
+      <div class="stat-label">Failed</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // State
+  let queue = [];
+  let stats = { processed: 0, success: 0, failed: 0 };
+  let webhookUrl = localStorage.getItem('hormozi_webhook') || '';
+
+  // Init
+  document.getElementById('webhookUrl').value = webhookUrl;
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('statusTime').textContent = 
+      now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+
+  function saveWebhook() {
+    webhookUrl = document.getElementById('webhookUrl').value.trim();
+    localStorage.setItem('hormozi_webhook', webhookUrl);
+    showToast('Webhook URL saved');
+  }
+
+  // File input
+  document.getElementById('fileInput').addEventListener('change', (e) => {
+    handleFiles(Array.from(e.target.files));
+    e.target.value = '';
+  });
+
+  // Drag and drop
+  const dropZone = document.getElementById('dropZone');
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const files = Array.from(e.dataTransfer.files).filter(f => 
+      f.type.startsWith('video/') || f.type.startsWith('audio/')
+    );
+    if (files.length) handleFiles(files);
+    else showToast('Video or audio files only', true);
+  });
+
+  function handleFiles(files) {
+    if (!webhookUrl) {
+      showToast('Set your n8n webhook URL first', true);
+      return;
+    }
+
+    files.forEach(file => {
+      if (file.size > 25 * 1024 * 1024) {
+        showToast(`${file.name} exceeds 25MB limit`, true);
+        return;
+      }
+      const item = {
+        id: Date.now() + Math.random(),
+        file,
+        name: file.name,
+        size: formatSize(file.size),
+        status: 'pending',
+        progress: 0
+      };
+      queue.push(item);
+      renderQueue();
+      processItem(item);
+    });
+  }
+
+  async function processItem(item) {
+    item.status = 'processing';
+    item.progress = 10;
+    renderQueue();
+    setStatus('processing', `Processing ${item.name}...`);
+
+    try {
+      item.progress = 30;
+      renderQueue();
+
+      // Force Whisper-compatible filename with proper extension
+      const ext = item.name.split('.').pop().toLowerCase();
+      const safeExts = ['mp4','mp3','m4a','wav','webm','ogg','flac','mpeg','mpga','oga'];
+      const fileExt = safeExts.includes(ext) ? ext : 'mp4';
+      const safeFileName = 'audio.' + fileExt;
+      const renamedFile = new File([item.file], safeFileName, { type: 'video/' + fileExt });
+
+      const formData = new FormData();
+      formData.append('data', renamedFile, safeFileName);
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        body: formData
+      });
+
+      item.progress = 90;
+      renderQueue();
+
+      if (response.ok) {
+        item.status = 'success';
+        item.progress = 100;
+        stats.processed++;
+        stats.success++;
+        showToast(`${item.name} sent to brain ✓`);
+        setStatus('idle', 'Ready — waiting for videos');
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+    } catch (err) {
+      item.status = 'error';
+      item.progress = 0;
+      item.error = err.message;
+      stats.processed++;
+      stats.failed++;
+      showToast(`Failed: ${err.message}`, true);
+      setStatus('error', `Error processing ${item.name}`);
+      setTimeout(() => setStatus('idle', 'Ready — waiting for videos'), 3000);
+    }
+
+    renderQueue();
+    updateStats();
+  }
+
+  function renderQueue() {
+    const container = document.getElementById('queue');
+    const empty = document.getElementById('emptyState');
+    const count = document.getElementById('queueCount');
+
+    count.textContent = `${queue.length} item${queue.length !== 1 ? 's' : ''}`;
+
+    if (queue.length === 0) {
+      container.innerHTML = '<div class="queue-empty" id="emptyState">// No videos queued yet</div>';
+      return;
+    }
+
+    container.innerHTML = queue.slice().reverse().map(item => `
+      <div class="queue-item ${item.status}">
+        <span class="item-icon">${getIcon(item.status)}</span>
+        <div class="item-info">
+          <div class="item-name">${item.name}</div>
+          <div class="item-meta">
+            <span>${item.size}</span>
+            <span>${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+            ${item.error ? `<span style="color:var(--red)">${item.error}</span>` : ''}
+          </div>
+          ${item.status === 'processing' || item.status === 'success' ? `
+            <div class="progress-bar">
+              <div class="progress-fill ${item.status === 'success' ? 'success' : ''}" 
+                   style="width:${item.progress}%"></div>
+            </div>
+          ` : ''}
+        </div>
+        <div class="item-status ${item.status}">
+          ${item.status === 'processing' ? '<div class="spinner"></div>' : ''}
+          ${getStatusLabel(item.status)}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function getIcon(status) {
+    const icons = { pending: '⏳', processing: '⚡', success: '✅', error: '❌' };
+    return icons[status] || '📹';
+  }
+
+  function getStatusLabel(status) {
+    const labels = { pending: 'QUEUED', processing: 'SENDING', success: 'DONE', error: 'FAILED' };
+    return labels[status] || status.toUpperCase();
+  }
+
+  function updateStats() {
+    document.getElementById('statProcessed').textContent = stats.processed;
+    document.getElementById('statSuccess').textContent = stats.success;
+    document.getElementById('statFailed').textContent = stats.failed;
+  }
+
+  function setStatus(type, text) {
+    const dot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    dot.className = `status-dot ${type === 'processing' ? '' : type === 'error' ? 'error' : 'idle'}`;
+    statusText.textContent = text;
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.className = `toast ${isError ? 'error' : ''} show`;
+    setTimeout(() => toast.className = `toast ${isError ? 'error' : ''}`, 3000);
+  }
+</script>
+</body>
+</html>
