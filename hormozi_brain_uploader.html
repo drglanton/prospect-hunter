@@ -526,9 +526,9 @@
     <span class="drop-icon">🧠</span>
     <div class="drop-title">FEED THE BRAIN</div>
     <p class="drop-sub">Drop Hormozi TikTok videos here<br>Each video gets transcribed, synthesized, and filed</p>
-    <button class="drop-btn" onclick="document.getElementById('fileInput').click()">SELECT FILES</button>
+    <label for="fileInput" class="drop-btn" style="display:inline-block;cursor:pointer;">SELECT FILES</label>
     <p class="drop-formats">MP4 · MOV · M4A · MP3 · WAV — MAX 25MB</p>
-    <input type="file" id="fileInput" accept="video/*,audio/*" multiple>
+    <input type="file" id="fileInput" accept="video/*,audio/*" multiple style="position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;">
   </div>
 
   <!-- Queue -->
